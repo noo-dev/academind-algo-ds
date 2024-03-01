@@ -1,0 +1,25 @@
+/*====== RECURSIVE SOLUTION ==========*/
+
+/* function fib(n) {
+    if (n < 2) {
+        return 1
+    }
+    return fib(n-2) + fib(n-1)
+}
+
+console.log(fib(6)) */
+
+
+/*========= FOR LOOP SOLUTION =========*/
+
+/* function fib(n) {
+    const numbers = [1, 1];
+    for (let i = 2; i <= n; i++) {
+        let current = numbers[i-1] + numbers[i-2] 
+        numbers.push(current);
+    }
+    return numbers[n] 
+}
+
+
+console.log(fib(6)) */

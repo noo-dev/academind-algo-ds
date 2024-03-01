@@ -1,0 +1,25 @@
+function getPermutations(options, length) {
+
+    if (length === 1) {
+        return options.map(option => [option])
+    }
+
+    const partialPermutations = getPermutations(options, length - 1)
+    const permutations = []
+    for (const option of options) {
+        for (const partialPermutation of partialPermutations) {
+            permutations.push([option].concat(partialPermutation))
+        }
+    }
+
+    return permutations
+}
+
+const digits = [1, 2, 3];
+const resultLength = 3;
+
+permutaions = getPermutations(digits, resultLength)
+
+console.log(permutaions)
+
+module.exports = getPermutations

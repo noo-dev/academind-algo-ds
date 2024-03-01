@@ -1,0 +1,15 @@
+function isPrime(n) {
+    let counter = 1
+    for (i = 2; i <= Math.sqrt(n); i++) {
+        counter++
+        if (n % i == 0) {
+            return false
+        }
+    }
+
+    return true    
+}
+
+console.log(isPrime(95791))
+
+module.exports = isPrime

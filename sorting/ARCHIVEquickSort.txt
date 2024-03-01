@@ -1,0 +1,27 @@
+function qsort(arr) {
+    if (arr.length < 2) {
+        return arr
+    }
+
+    let pivot = arr[0]
+
+    let smallerEls = []
+    let equalEls = []
+    let greaterEls = []
+    
+
+    while (arr.length > 0) {
+        const currentEl = arr.shift()
+        if (currentEl === pivot) {
+            equalEls.push(currentEl)
+        } else if (currentEl < pivot) {
+            smallerEls.push(currentEl)
+        } else {
+            greaterEls.push(currentEl)
+        }
+    }
+
+    return qsort(smallerEls).concat(equalEls, qsort(greaterEls))
+}
+
+module.exports = qsort

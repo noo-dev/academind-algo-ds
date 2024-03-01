@@ -1,0 +1,26 @@
+function binary_search(arr, target)  {
+    let lowIdx = 0
+    let highIdx = arr.length - 1
+    while (lowIdx <= highIdx) {
+        let midIdx = Math.floor((highIdx+lowIdx) / 2)
+         
+        if (arr[midIdx] === target) {
+            return midIdx
+        }
+
+        if (arr[midIdx] > target) {
+            highIdx = midIdx - 1
+        } 
+        if (arr[midIdx] < target) {
+            lowIdx = midIdx + 1
+        }
+    }
+
+    return -1
+}
+
+const arr = [2, 4, 6, 7, 8, 11, 12, 14]
+console.log(binary_search(arr, 6))
+
+
+module.exports = binary_search

@@ -1,0 +1,37 @@
+function getCartesian(setA, setB)  {
+    const product = []
+
+    for (const setAEl of setA) {
+        if (Array.isArray(setAEl)) {
+            for (const setBEl of setB) {
+                product.push([...setAEl, setBEl])
+            } 
+        } else {
+            for (const setBEl of setB) {
+                product.push([setAEl, setBEl])
+            }
+        }   
+        
+    }
+
+    return product
+}
+
+function cartesian(...sets) {
+    tempProduct = sets[0]
+    for (let i = 1; i < sets.length; i++) {
+        tempProduct = getCartesian(tempProduct, sets[i])
+    }
+
+    return tempProduct
+}
+
+
+/* const sizes = ['L', 'M']
+const colors = ['blue', 'red']
+const styles = ['round', 'v-shape']  
+const materials = ['cotton', 'silk']
+
+console.log("cartesian product: ", cartesian(colors, sizes, styles, materials)) */
+
+module.exports = cartesian

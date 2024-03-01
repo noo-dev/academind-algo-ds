@@ -1,0 +1,167 @@
+class LinkedList {
+    constructor() {
+       this.head = null;
+        this.tail = null;
+    }
+
+    prepend(value) {  
+        const newNode = {value: value, next: this.head}
+        this.head = newNode
+        
+        if (this.tail === null) {
+            this.tail = newNode
+        }
+    }
+
+    append(value) {
+        const newNode = {value: value, next: null}
+        if (this.tail !== null) {
+            this.tail.next = newNode;    
+        }
+
+        if (this.head === null) {
+            this.head = newNode;
+        }
+        
+        this.tail = newNode; 
+    }
+
+    find(value) {
+        let currentNode = this.head
+        while (currentNode !== null) {
+            if (currentNode.value === value) {
+                return currentNode
+            }
+            currentNode = currentNode.next
+        }
+        return null
+    }
+
+    insertAfter(value, afterValue) {
+        const existingNode = this.find(afterValue)
+
+        if (existingNode !== null) {
+            const newNode = {value, next: existingNode.next}
+            if (existingNode === this.tail) {
+                this.tail = newNode
+            }
+            existingNode.next = newNode
+        }
+    }
+
+    delete(value) {
+        if (this.head === null) {
+            return 
+        }
+
+        while (this.head !== null && this.head.value === value) {
+            this.head = this.head.next
+        }
+
+        if (this.head === null) {
+            return
+        }
+
+        let curNode = this.head
+        while(curNode.next !== null) {
+            if (curNode.next.value === value) {
+                curNode.next = curNode.next.next 
+            } else {
+                curNode = curNode.next
+            }
+        } 
+
+        if (this.tail.value === value) {
+            this.tail = curNode
+        }
+    }
+
+    deleteTail() {
+        const deletedTail = this.tail;
+
+        if (this.head === this.tail) {
+            this.head = null;
+            this.tail = null;
+
+            return deletedTail;
+        }
+
+        let currentNode = this.head
+        while(currentNode !== null) {
+            if (currentNode.next === this.tail) {
+                this.tail = currentNode
+                currentNode.next = null
+                return deletedTail
+            }
+            currentNode = currentNode.next
+        }
+    }
+
+    deleteHead() {
+        if (this.head === null) {
+            return null
+        }
+        
+        const deletedHead = this.head;
+
+        if (this.head.next === null) {
+            this.head = null
+            this.tail = null
+        } else {
+            this.head = this.head.next
+        }
+        
+        return deletedHead
+    }
+
+    toArray() {
+        const elements = [];
+        let currentNode = this.head
+        while(currentNode !== null) {
+            elements.push(currentNode.value)
+            currentNode = currentNode.next
+        }  
+
+        return elements  
+    }
+
+    fromArray(arr) {
+        this.head = null
+        this.tail = null
+        arr.forEach(value => this.append(value))
+    }
+
+    reverse() {
+        let currentNode = this.head;
+        let prevNode = null;
+        let nextNode = null;
+
+        while (currentNode) {
+            nextNode = currentNode.next
+            currentNode.next = prevNode
+            
+            prevNode = currentNode
+            currentNode = nextNode
+        }
+
+        this.tail = this.head
+        this.head = prevNode
+    }
+
+}
+
+
+const linkedList1 = new LinkedList();
+// linkedList1.append('Max')
+// linkedList1.append(12)
+linkedList1.append(true)
+// linkedList1.prepend('begin')
+linkedList1.prepend('begin')
+// linkedList1.insertAfter("Swarchz", true)
+// linkedList1.delete('begin')
+console.log(linkedList1.deleteTail())
+console.log(linkedList1.toArray())
+
+
+module.exports = LinkedList
+ 

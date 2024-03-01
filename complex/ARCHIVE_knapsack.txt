@@ -1,0 +1,56 @@
+function knapsackFn(items, cap, itemIndex, memo) {
+    if (memo[cap][itemIndex] !== undefined)  {
+        return memo[cap][itemIndex]
+    }
+    if (cap === 0 || itemIndex < 0) {
+        return {items: [], value: 0, weight: 0}
+    }
+
+    const currentItem = items[itemIndex]
+    if (cap < currentItem.weight) {
+        return knapsackFn(items, cap, itemIndex - 1, memo)
+    }
+
+    const sackWithCapForItem = knapsackFn(
+        items,
+        cap - currentItem.weight,
+        itemIndex - 1,
+        memo
+    );
+
+    const sackWithoutCapForItem = knapsackFn(items, cap, itemIndex - 1, memo);
+
+    const valueOfSackWithItem = sackWithCapForItem.value + currentItem.value
+    const valueOfSackWithoutItem = sackWithoutCapForItem.value
+    
+    let resultSack;
+
+    if (valueOfSackWithItem > valueOfSackWithoutItem) {
+        const sackWithItem = {
+            items: sackWithCapForItem.items.concat([currentItem]),
+            value: sackWithCapForItem.value + currentItem.value,
+            weight: sackWithCapForItem.weight + currentItem.weight
+        }
+
+        resultSack = sackWithItem
+    } else {
+        resultSack = sackWithoutCapForItem
+    }
+
+    memo[cap][itemIndex] = resultSack
+    return resultSack
+}
+
+function knapsack(items, cap, index) {
+    const memo = Array.from({length: cap + 1}, () => 
+        Array(items.length).fill(undefined)
+    );
+    return knapsackFn(items, cap, index, memo)
+
+}
+
+
+
+function knapsackDecorator(items, cap) {
+    return knapsack(items, cap, items.length - 1)
+}

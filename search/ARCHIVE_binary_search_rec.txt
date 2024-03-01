@@ -1,0 +1,25 @@
+function binary_search_rec(arr, target, offset) {
+    if (offset === undefined) {
+        offset = 0
+    }
+
+    let startIdx = 0
+    let endIdx = arr.length - 1
+    let midIdx = Math.floor((startIdx + endIdx) / 2)
+
+    if (arr.length < 2 && arr[0] !== target) {
+        return -1
+    }
+
+    if (arr[midIdx] === target) {
+        return midIdx + offset 
+    }
+
+    if (arr[midIdx] > target) {
+        endIdx = midIdx
+    } else {
+        startIdx = midIdx + 1
+        offset = midIdx + offset + 1
+    }
+    return binary_search_rec(arr.slice(startIdx, endIdx + 1), target, offset)
+}
